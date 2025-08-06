@@ -1,3 +1,4 @@
+# This is a test
 
 import numpy as np
 from astropy.io import fits
@@ -993,7 +994,7 @@ def centroid(image,lim):
 
 def get_filenames(date,Type,query,cwd):
 
-    path_list = glob.glob(f"{cwd}/{date}/raw/{Type}/{query}")
+    path_list = [path.replace('\\', '/') for path in glob.glob(f"{cwd}/{date}/raw/{Type}/{query}")]
           
     data_list = []
     
@@ -1191,18 +1192,19 @@ def get_lists(cwd,date,query,query_d,query_null_f):
     Type = 'direct'
     
     ## That last period gets the science data
-    path_list = glob.glob(f"{cwd}/{date}/raw/{Type}/{query_d}.*")
+    path_list = [path.replace('\\', '/') for path in glob.glob(f"{cwd}/{date}/raw/{Type}/{query_d}.*")]
     
     #print(cwd)
-    #print(path_list)
-    print(path_list[0].split('/')[7])
+    print(path_list[0])
+    print(path_list[0].split('/'))
+    print(path_list[0].split('/')[10])
     
     
     
     data_list = []
     for i in range(len(path_list)):
-        if path_list[i].split('/')[8].split('.')[2] == 'FIT':
-            data_list.append(path_list[i].split('/')[8])
+        if path_list[i].split('/')[10].split('.')[2] == 'FIT':
+            data_list.append(path_list[i].split('/')[10])
             
     data_list = sorted(data_list)
     print(data_list[0])
@@ -1215,12 +1217,12 @@ def get_lists(cwd,date,query,query_d,query_null_f):
     Type = 'direct'
     
     ## That last period gets the science data
-    path_list = glob.glob(f"{cwd}/{date}/raw/{Type}/{query_d}_*") ###   _
+    path_list = [path.replace('\\', '/') for path in glob.glob(f"{cwd}/{date}/raw/{Type}/{query_d}_*")] ###   _
     
     data_list = []
     for i in range(len(path_list)):
-        if path_list[i].split('/')[8].split('.')[2] == 'FIT':
-            data_list.append(path_list[i].split('/')[8])
+        if path_list[i].split('/')[10].split('.')[2] == 'FIT':
+            data_list.append(path_list[i].split('/')[10])
             
     data_list = sorted(data_list)
     print(data_list[0])
@@ -1235,12 +1237,12 @@ def get_lists(cwd,date,query,query_d,query_null_f):
     Type = 'fiber'
     
     ## That last period gets the science data
-    path_list = glob.glob(f"{cwd}/{date}/raw/{Type}/{query}.*")
+    path_list = [path.replace('\\', '/') for path in glob.glob(f"{cwd}/{date}/raw/{Type}/{query}.*")]
     
     data_list = []
     for i in range(len(path_list)):
-        if path_list[i].split('/')[8].split('.')[2] == 'FIT':
-            data_list.append(path_list[i].split('/')[8])
+        if path_list[i].split('/')[10].split('.')[2] == 'FIT':
+            data_list.append(path_list[i].split('/')[10])
             
     data_list = sorted(data_list)
     print(data_list[0])
@@ -1251,12 +1253,12 @@ def get_lists(cwd,date,query,query_d,query_null_f):
     
     #######################################################
     ## That last period gets the science data
-    path_list = glob.glob(f"{cwd}/{date}/raw/{Type}/{query_null_f}_*")
+    path_list = [path.replace('\\', '/') for path in glob.glob(f"{cwd}/{date}/raw/{Type}/{query_null_f}_*")]
     
     data_list = []
     for i in range(len(path_list)):
-        if path_list[i].split('/')[8].split('.')[2] == 'FIT':
-            data_list.append(path_list[i].split('/')[8])
+        if path_list[i].split('/')[10].split('.')[2] == 'FIT':
+            data_list.append(path_list[i].split('/')[10])
             
     data_list = sorted(data_list)
     print(data_list[0])
@@ -1268,12 +1270,14 @@ def get_lists(cwd,date,query,query_d,query_null_f):
     return(dir_img_list,dir_null_list,fib_img_list,fib_null_list)
 
 def main():
+    # Get dataset date and establish file calls
+    date = input("Enter dataset date (e.g. '20230113'): ")
     # Set your working directory and parameters
-    cwd = r"C:\\Users\\jakes\\Documents\\Madison Research Code\\Test Stand Code"
-    date = "20230113"  # <-- Change to your dataset date
-    query = "600FBP_test.00003082.FIT"  # <-- Change to your fiber FITS filename (without path)
-    query_d = "your_direct_file_name"  # <-- Change to your direct FITS filename (without path)
-    query_null_f = "600FBP_test_null.00003082"  # <-- Change if you have a null fiber file
+    cwd = (f"c:/Users/Washburn Astro Labs/Desktop/Jake Mader - Summer 2025/GitHub Test FIT Files/FITS Files OLD")
+    query = "600FBP_test"  # <-- Change to your fiber FITS filename (without path)
+    query_d = "600FBP_test"  # <-- Change to your direct FITS filename (without path)
+    query_null_f = "600FBP_test"  # <-- Change if you have a null fiber file
+
     lim = 900  # <-- Adjust threshold as needed
     bgsub = True  # <-- Set to True if you want background subtraction
 
