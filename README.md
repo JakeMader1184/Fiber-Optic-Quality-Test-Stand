@@ -10,5 +10,7 @@ To-dos:
 
 Instructions for use:
 
-1. Run code initially, then put the date level data folders (e.g. 20230113) into the created "Data Directory" folder on the pc desktop
-2. Type 'y' into the input in terminal to continue the code
+1. Run code initially
+2. Code will ask for user name in c:/Users/ directory
+3. Then put the date level data folders (e.g. 20230113) into the created "Data Directory" folder on the pc desktop
+4. Type 'y' into the input in terminal after the check and press enter to continue the code
