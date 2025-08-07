@@ -150,7 +150,7 @@ def med(date,Type,data_list,lamp_initial,lamp_list,null_list,newshape,in_bg_an,o
     print(data_list[0])
     cwd = os.getcwd()    
     name = str.split(data_list[0],'.')[0]
-    path = f"{cwd}/{date}/raw/{Type}"
+    path = f"{cwd}/Data Directory/{date}/raw/{Type}"
     
     hdu_data_list = [fits.open(f"{path}/{data_list[i]}") for i in range(len(data_list))]
 
@@ -252,7 +252,7 @@ def med(date,Type,data_list,lamp_initial,lamp_list,null_list,newshape,in_bg_an,o
     ##ax.set_ylabel('Number of Pixels in BG')
     ##ax.set_title('BG Distribution')
     ##plt.tight_layout()
-    ##plt.savefig(f"{cwd}/{date}/{Type}_{name}_BG_distribution.png")
+    ##plt.savefig(f"{cwd}/Data Directory/{date}/{Type}_{name}_BG_distribution.png")
     ##plt.close()
     ##############################################   
     ##
@@ -268,7 +268,7 @@ def med(date,Type,data_list,lamp_initial,lamp_list,null_list,newshape,in_bg_an,o
     ##ax2.set_xlim(0,255)
 ##
     ##plt.tight_layout()
-    ##plt.savefig(f"{cwd}/{date}/{Type}_{name}_full_distribution.png")
+    ##plt.savefig(f"{cwd}/Data Directory/{date}/{Type}_{name}_full_distribution.png")
     ##plt.close()
     
     ###############################################
@@ -284,17 +284,17 @@ def med(date,Type,data_list,lamp_initial,lamp_list,null_list,newshape,in_bg_an,o
     header = fits.getheader(headerfits)
 
     outfilename_med = f"{name}_{Type}_med"
-    outpath_med = f"{cwd}/{date}/redux/{Type}/{outfilename_med}.fits"
+    outpath_med = f"{cwd}/Data Directory/{date}/redux/{Type}/{outfilename_med}.fits"
 
     outfilename_null_med = f"{name}_null_{Type}_med"
-    outpath_null_med = f"{cwd}/{date}/redux/{Type}/{outfilename_null_med}.fits"
-    
+    outpath_null_med = f"{cwd}/Data Directory/{date}/redux/{Type}/{outfilename_null_med}.fits"
+
     outfilename_nobg = f"{name}_{Type}_nobg"
-    outpath_nobg = f"{cwd}/{date}/redux/{Type}/{outfilename_nobg}.fits"
-    
+    outpath_nobg = f"{cwd}/Data Directory/{date}/redux/{Type}/{outfilename_nobg}.fits"
+
     outfilename_U = f"{name}_{Type}_uncertainty"
-    outpath_U = f"{cwd}/{date}/redux/{Type}/{outfilename_U}.fits"
-    
+    outpath_U = f"{cwd}/Data Directory/{date}/redux/{Type}/{outfilename_U}.fits"
+
     #fits.writeto(outpath_med,M,header,overwrite = True)
     #fits.writeto(outpath_null_med,M_null,header,overwrite = True)
     fits.writeto(outpath_nobg,D,header,overwrite = True)
@@ -309,25 +309,25 @@ def med_for_TSW(cwd,date,Type,data_list,null_list,newshape,lim,query,query_d,bgs
     #print(cwd)
     
         
-    if os.path.isdir(f"{cwd}/{date}/raw/fiber") == False:
-        os.mkdir(f"{cwd}/{date}/raw/fiber") 
+    if os.path.isdir(f"{cwd}/Data Directory/{date}/raw/fiber") == False:
+        os.mkdir(f"{cwd}/Data Directory/{date}/raw/fiber") 
         
-    if os.path.isdir(f"{cwd}/{date}/redux") == False:
-        os.mkdir(f"{cwd}/{date}/redux") 
-        
-    if os.path.isdir(f"{cwd}/{date}/analysis") == False:
-        os.mkdir(f"{cwd}/{date}/analysis") 
-        
-    if os.path.isdir(f"{cwd}/{date}/redux/fiber") == False:
-        os.mkdir(f"{cwd}/{date}/redux/fiber") 
-    
-    if os.path.isdir(f"{cwd}/{date}/redux/direct") == False:
-        os.mkdir(f"{cwd}/{date}/redux/direct") 
+    if os.path.isdir(f"{cwd}/Data Directory/{date}/redux") == False:
+        os.mkdir(f"{cwd}/Data Directory/{date}/redux")
+
+    if os.path.isdir(f"{cwd}/Data Directory/{date}/analysis") == False:
+        os.mkdir(f"{cwd}/Data Directory/{date}/analysis")
+
+    if os.path.isdir(f"{cwd}/Data Directory/{date}/redux/fiber") == False:
+        os.mkdir(f"{cwd}/Data Directory/{date}/redux/fiber")
+
+    if os.path.isdir(f"{cwd}/Data Directory/{date}/redux/direct") == False:
+        os.mkdir(f"{cwd}/Data Directory/{date}/redux/direct")
         
     
     name = str.split(data_list[0],'.')[0]
 
-    path = f"{cwd}/{date}/raw/{Type}"
+    path = f"{cwd}/Data Directory/{date}/raw/{Type}"
     
     hdu_data_list = [fits.open(f"{path}/{data_list[i]}") for i in range(len(data_list))]
 
@@ -341,7 +341,7 @@ def med_for_TSW(cwd,date,Type,data_list,null_list,newshape,lim,query,query_d,bgs
     U = np.std(np.array(A),axis=0)
     
     if len(null_list) == 0:
-        
+        # in_bg_an and out_bg_an are the inner and outer radii of the annulus to investigate background
         A_null = bg_sub(M,in_bg_an,out_bg_an)[1] * np.ones(np.shape(M))
         print(f"Mean_annulus_counts: {np.mean(A_null)}")
         M_null = A_null
@@ -391,17 +391,17 @@ def med_for_TSW(cwd,date,Type,data_list,null_list,newshape,lim,query,query_d,bgs
     header = fits.getheader(headerfits)
 
     outfilename_med = f"{name}_{Type}_med"
-    outpath_med = f"{cwd}/{date}/redux/{Type}/{outfilename_med}.fits"
+    outpath_med = f"{cwd}/Data Directory/{date}/redux/{Type}/{outfilename_med}.fits"
 
     outfilename_null_med = f"{name}_null_{Type}_med"
-    outpath_null_med = f"{cwd}/{date}/redux/{Type}/{outfilename_null_med}.fits"
-    
+    outpath_null_med = f"{cwd}/Data Directory/{date}/redux/{Type}/{outfilename_null_med}.fits"
+
     outfilename_nobg = f"{name}_{Type}_nobg"
-    outpath_nobg = f"{cwd}/{date}/redux/{Type}/{outfilename_nobg}.fits"
+    outpath_nobg = f"{cwd}/Data Directory/{date}/redux/{Type}/{outfilename_nobg}.fits"
     
     #outfilename_U = f"{name}_{Type}_uncertainty"
-    #outpath_U = f"{cwd}/{date}/redux/{Type}/{outfilename_U}.fits"
-        
+    #outpath_U = f"{cwd}/Data Directory/{date}/redux/{Type}/{outfilename_U}.fits"
+
     fits.writeto(outpath_med,M,header,overwrite = True) 
     fits.writeto(outpath_null_med,M_null,header,overwrite = True) 
     fits.writeto(outpath_nobg,D,header,overwrite = True) 
@@ -461,7 +461,8 @@ def neo_annulize(data,cen,lim):
     ### another method: ,r_vec,fluxes
     
     
-    out = np.array([radius,flux,flux_error,sb,sb_error,center]) 
+    # out = np.array([radius,flux,flux_error,sb,sb_error,center])
+    out = [radius, flux, flux_error, sb, sb_error, center]
     return(out)
 
 def neo_FReD(direct_img_data, fiber_img_data,d_cen,f_cen,\
@@ -727,10 +728,13 @@ def neo_FReD(direct_img_data, fiber_img_data,d_cen,f_cen,\
     d_N_c = []
     f_N_c = []
     
-    direct = np.array([d_rvec, d_r_c, d_N, d_N_c, d_cumflux,d_max, d_EE,d_sb,d_EEerr,\
-                       d_sberrors])
-    fiber = np.array([f_rvec, f_r_c, f_N, f_N_c, f_cumflux,f_max, f_EE,f_sb,f_EEerr,\
-                      f_sberrors])
+    # direct = np.array([d_rvec, d_r_c, d_N, d_N_c, d_cumflux,d_max, d_EE,d_sb,d_EEerr,\
+    #                    d_sberrors])
+    # fiber = np.array([f_rvec, f_r_c, f_N, f_N_c, f_cumflux,f_max, f_EE,f_sb,f_EEerr,\
+    #                   f_sberrors])
+    
+    direct = [d_rvec, d_r_c, d_N, d_N_c, d_cumflux,d_max, d_EE,d_sb,d_EEerr,d_sberrors]
+    fiber = [f_rvec, f_r_c, f_N, f_N_c, f_cumflux,f_max, f_EE,f_sb,f_EEerr,f_sberrors]
 
     #if FR == 4.2:
     #
@@ -815,7 +819,7 @@ def EE_from_TSW(cwd,date,dir_img_data,fib_img_data,query,lim):
     ax.tick_params(axis='both', which='minor', labelsize=16)
     
     plt.tight_layout()
-    plt.savefig(f"{cwd}/{date}/analysis/{query}_EE_COG.png")
+    plt.savefig(f"{cwd}/Data Directory/{date}/analysis/{query}_EE_COG.png")
     #return(fib_img_data)
     return(total_tput*100,relative_throughput*100,out[0][4],out[0][5])
 
@@ -861,10 +865,10 @@ def produce(cwd,date,query,query_d,query_null_f,lim,bgsub):
     multi_med(cwd,date,dir_img_list,dir_null_list,fib_img_list,fib_null_list,(),lim,query,query_d,bgsub)
     
     #date = '20201106'
-    path = f"{cwd}/{date}/"
+    path = f"{cwd}/Data Directory/{date}/"
     data_list = [query]
-    dir_img_data = fits.open(f"{cwd}/{date}/redux/direct/{query_d}_direct_nobg.fits")[0].data 
-    fib_img_data = fits.open(f"{cwd}/{date}/redux/fiber/{query}_fiber_nobg.fits")[0].data
+    dir_img_data = fits.open(f"{cwd}/Data Directory/{date}/redux/direct/{query_d}_direct_nobg.fits")[0].data 
+    fib_img_data = fits.open(f"{cwd}/Data Directory/{date}/redux/fiber/{query}_fiber_nobg.fits")[0].data
 
 
     total_tput,relative_throughput,d_cenn,f_cenn = EE_from_TSW(cwd,date,dir_img_data,fib_img_data,query,lim)
@@ -902,7 +906,7 @@ def produce(cwd,date,query,query_d,query_null_f,lim,bgsub):
     plt.show()
 
     plt.tight_layout()
-    figa.savefig(f"{cwd}/{date}/analysis/{query}__dir_img.png")
+    figa.savefig(f"{cwd}/Data Directory/{date}/analysis/{query}__dir_img.png")
     plt.close()
     
     #dir_img_uncertainty = fits.open(f"{path}redux/direct/{name}_direct_uncertainty.fits")[0].data
@@ -941,7 +945,7 @@ def produce(cwd,date,query,query_d,query_null_f,lim,bgsub):
     
 
     plt.tight_layout()
-    figb.savefig(f"{cwd}/{date}/analysis/{query}_fib_img.png")
+    figb.savefig(f"{cwd}/Data Directory/{date}/analysis/{query}_fib_img.png")
     plt.close()
     
     #fib_img_uncertainty = fits.open(f"{path}redux/fiber/{name}_fiber_uncertainty.fits")[0].data
@@ -952,11 +956,11 @@ def bmp_to_fits(date,Type,filename):
     cwd = os.getcwd()
 
     if (Type == 'direct') or (Type == 'fiber'):
-        outpath = f"{cwd}/{date}/raw/{Type}"
+        outpath = f"{cwd}/Data Directory/{date}/raw/{Type}"
         image = imageio.imread(os.path.join(outpath +'/',filename))
 
     else:
-        outpath = f"{cwd}/{date}/{Type}"
+        outpath = f"{cwd}/Data Directory/{date}/{Type}"
         image = imageio.imread(os.path.join(outpath +'/',filename),pilmode='L')
 
     #outpath = inpath + '/' + filename + '.fits'
@@ -994,7 +998,7 @@ def centroid(image,lim):
 
 def get_filenames(date,Type,query,cwd):
 
-    path_list = [path.replace('\\', '/') for path in glob.glob(f"{cwd}/{date}/raw/{Type}/{query}")]
+    path_list = [path.replace('\\', '/') for path in glob.glob(f"{cwd}/Data Directory/{date}/raw/{Type}/{query}")]
           
     data_list = []
     
@@ -1012,7 +1016,7 @@ def get_filenames(date,Type,query,cwd):
 def get_rad(name,FL3,Type,ITERATE,lim,date,cwd):###################
 
     cwd = os.getcwd()
-    path = f"{cwd}/{date}/"
+    path = f"{cwd}/Data Directory/{date}/"
     
     img_data = fits.open(f"{path}redux/{Type}/{name}_{Type}_nobg.fits")[0].data 
     #img_uncertainty = fits.open(f"{path}redux/{Type}/{name}_{Type}_uncertainty.fits")[0].data
@@ -1070,22 +1074,22 @@ def mod_annulize(data,lim):
     
 def calibrate(date,data_set,data_set_d,lim,cwd,injection_fn):
 
-    
-    if os.path.isdir(f"{cwd}/{date}/raw/fiber") == False:
-        os.mkdir(f"{cwd}/{date}/raw/fiber") 
+
+    if os.path.isdir(f"{cwd}/Data Directory/{date}/raw/fiber") == False:
+        os.mkdir(f"{cwd}/Data Directory/{date}/raw/fiber") 
+
+    if os.path.isdir(f"{cwd}/Data Directory/{date}/redux") == False:
+        os.mkdir(f"{cwd}/Data Directory/{date}/redux") 
+
+    if os.path.isdir(f"{cwd}/Data Directory/{date}/analysis") == False:
+        os.mkdir(f"{cwd}/Data Directory/{date}/analysis") 
         
-    if os.path.isdir(f"{cwd}/{date}/redux") == False:
-        os.mkdir(f"{cwd}/{date}/redux") 
-        
-    if os.path.isdir(f"{cwd}/{date}/analysis") == False:
-        os.mkdir(f"{cwd}/{date}/analysis") 
-        
-    if os.path.isdir(f"{cwd}/{date}/redux/fiber") == False:
-        os.mkdir(f"{cwd}/{date}/redux/fiber") 
-    
-    if os.path.isdir(f"{cwd}/{date}/redux/direct") == False:
-        os.mkdir(f"{cwd}/{date}/redux/direct") 
-        
+    if os.path.isdir(f"{cwd}/Data Directory/{date}/redux/fiber") == False:
+        os.mkdir(f"{cwd}/Data Directory/{date}/redux/fiber") 
+
+    if os.path.isdir(f"{cwd}/Data Directory/{date}/redux/direct") == False:
+        os.mkdir(f"{cwd}/Data Directory/{date}/redux/direct") 
+
     ######Convert all direct and fiber bmp to fits
     ######
     
@@ -1096,7 +1100,7 @@ def calibrate(date,data_set,data_set_d,lim,cwd,injection_fn):
     [bmp_to_fits(date,Type, data_list[i]) for i in range(len(data_list))]
     print(data_list)
 
-    path = f"{cwd}/{date}/raw/{Type}"
+    path = f"{cwd}/Data Directory/{date}/raw/{Type}"
 
     
     data_list0 = get_filenames(date,Type,f"*_{data_set_d}.*",cwd)
@@ -1170,7 +1174,7 @@ def calibrate(date,data_set,data_set_d,lim,cwd,injection_fn):
     ax.grid()
     plt.tight_layout()
     
-    plt.savefig(f"{cwd}/{date}/analysis/{data_set_d}_direct_beam_calibration_{injection_fn}.png")
+    plt.savefig(f"{cwd}/Data Directory/{date}/analysis/{data_set_d}_direct_beam_calibration_{injection_fn}.png")
     
     #### Lets grab the common x intercept of all the EE slopes: 
     
@@ -1192,19 +1196,18 @@ def get_lists(cwd,date,query,query_d,query_null_f):
     Type = 'direct'
     
     ## That last period gets the science data
-    path_list = [path.replace('\\', '/') for path in glob.glob(f"{cwd}/{date}/raw/{Type}/{query_d}.*")]
+    path_list = [path.replace('\\', '/') for path in glob.glob(f"{cwd}/Data Directory/{date}/raw/{Type}/{query_d}.*")]
     
-    #print(cwd)
-    print(path_list[0])
-    print(path_list[0].split('/'))
-    print(path_list[0].split('/')[10])
-    
+    # print(cwd)
+    # print(path_list[0])
+    # print(path_list[0].split('/'))
+    # print(path_list[0].split('/')[8])
     
     
     data_list = []
     for i in range(len(path_list)):
-        if path_list[i].split('/')[10].split('.')[2] == 'FIT':
-            data_list.append(path_list[i].split('/')[10])
+        if path_list[i].split('/')[8].split('.')[2] == 'FIT':
+            data_list.append(path_list[i].split('/')[8])
             
     data_list = sorted(data_list)
     print(data_list[0])
@@ -1217,12 +1220,12 @@ def get_lists(cwd,date,query,query_d,query_null_f):
     Type = 'direct'
     
     ## That last period gets the science data
-    path_list = [path.replace('\\', '/') for path in glob.glob(f"{cwd}/{date}/raw/{Type}/{query_d}_*")] ###   _
-    
+    path_list = [path.replace('\\', '/') for path in glob.glob(f"{cwd}/Data Directory/{date}/raw/{Type}/{query_d}_*")] ###   _
+
     data_list = []
     for i in range(len(path_list)):
-        if path_list[i].split('/')[10].split('.')[2] == 'FIT':
-            data_list.append(path_list[i].split('/')[10])
+        if path_list[i].split('/')[8].split('.')[2] == 'FIT':
+            data_list.append(path_list[i].split('/')[8])
             
     data_list = sorted(data_list)
     print(data_list[0])
@@ -1237,12 +1240,12 @@ def get_lists(cwd,date,query,query_d,query_null_f):
     Type = 'fiber'
     
     ## That last period gets the science data
-    path_list = [path.replace('\\', '/') for path in glob.glob(f"{cwd}/{date}/raw/{Type}/{query}.*")]
-    
+    path_list = [path.replace('\\', '/') for path in glob.glob(f"{cwd}/Data Directory/{date}/raw/{Type}/{query}.*")]
+
     data_list = []
     for i in range(len(path_list)):
-        if path_list[i].split('/')[10].split('.')[2] == 'FIT':
-            data_list.append(path_list[i].split('/')[10])
+        if path_list[i].split('/')[8].split('.')[2] == 'FIT':
+            data_list.append(path_list[i].split('/')[8])
             
     data_list = sorted(data_list)
     print(data_list[0])
@@ -1253,12 +1256,12 @@ def get_lists(cwd,date,query,query_d,query_null_f):
     
     #######################################################
     ## That last period gets the science data
-    path_list = [path.replace('\\', '/') for path in glob.glob(f"{cwd}/{date}/raw/{Type}/{query_null_f}_*")]
-    
+    path_list = [path.replace('\\', '/') for path in glob.glob(f"{cwd}/Data Directory/{date}/raw/{Type}/{query_null_f}_*")]
+
     data_list = []
     for i in range(len(path_list)):
-        if path_list[i].split('/')[10].split('.')[2] == 'FIT':
-            data_list.append(path_list[i].split('/')[10])
+        if path_list[i].split('/')[8].split('.')[2] == 'FIT':
+            data_list.append(path_list[i].split('/')[8])
             
     data_list = sorted(data_list)
     print(data_list[0])
@@ -1272,11 +1275,26 @@ def get_lists(cwd,date,query,query_d,query_null_f):
 def main():
     # Get dataset date and establish file calls
     date = input("Enter dataset date (e.g. '20230113'): ")
-    # Set your working directory and parameters
-    cwd = (f"c:/Users/Washburn Astro Labs/Desktop/Jake Mader - Summer 2025/GitHub Test FIT Files/FITS Files OLD")
-    query = "600FBP_test"  # <-- Change to your fiber FITS filename (without path)
-    query_d = "600FBP_test"  # <-- Change to your direct FITS filename (without path)
-    query_null_f = "600FBP_test"  # <-- Change if you have a null fiber file
+    
+    # Establish working directory in desktop for universal access
+    user = input("Enter your desktop username located in the 'c:/Users/' directory: " )
+    cwd = (f"c:/Users/{user}/Desktop") #Jake Mader - Summer 2025/GitHub Test FIT Files/FITS Files OLD")
+
+    if os.path.isdir(f"{cwd}/Data Directory") == False:
+        os.mkdir(f"{cwd}/Data Directory")
+
+    print('Please ensure that the FITS files are located in the "Data Directory" folder on your desktop. The folder structure should be: "Data Directory/{date}/raw/direct" and "Data Directory/{date}/raw/fiber".')
+    # Pause and ask user if they have completed the task
+    response = input("Have you completed the above task? (y/n): ")
+    if response.lower() == 'n':
+        print("Exiting program. Please complete the task and rerun.")
+        return
+    # Continue if 'y' or anything else
+
+    ID = input("Enter the file ID for the dataset (e.g. '600FBP_test', 'IFUSI_f42_V'): ")
+    query = ID
+    query_d = ID
+    query_null_f = ID
 
     lim = 900  # <-- Adjust threshold as needed
     bgsub = True  # <-- Set to True if you want background subtraction
